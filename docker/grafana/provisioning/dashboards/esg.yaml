@@ -1,0 +1,17 @@
+apiVersion: 1
+dashboards:
+  - name: ESG Overview
+    json: >
+      {
+        "title": "CO2 Levels",
+        "panels": [
+          {
+            "title": "CO2 ppm",
+            "type": "timeseries",
+            "targets": [{
+              "rawSql": "SELECT time, value FROM sensor_data WHERE metric_type = 'co2'",
+              "format": "time_series"
+            }]
+          }
+        ]
+      }

@@ -1,0 +1,4 @@
+paho-mqtt
+sqlalchemy
+pytest
+psycopg2-binary
