@@ -23,28 +23,14 @@ A production-ready environmental monitoring system integrating IoT sensor simula
 
 ## 🚀 Quick Start
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/YOUR_USERNAME/esg-dashboard.git
-cd esg-dashboard
-```
-
-### 2. Generate Secrets
-```bash
-mkdir secrets
-openssl rand -hex 32 > secrets/db_password.txt
-openssl rand -hex 32 > secrets/grafana_admin_password.txt
-```
-
-### 3. Start the System
+### 1. Start the System
 ```bash
 docker-compose up -d
 ```
 
-### 4. Run Simulators and Listeners
+### 2. Run Simulators
 ```bash
-python3 -m simulation.devices.co2_sensor
-python3 -m backend.ingest.mqtt_listener
+python -m simulation.devices.co2_sensor
 ```
 
 ---
@@ -77,15 +63,6 @@ esg-dashboard/
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
-```
-
----
-
-## 🧪 Testing
-
-### Run Pytest
-```bash
-pytest tests/ -v
 ```
 
 ---
