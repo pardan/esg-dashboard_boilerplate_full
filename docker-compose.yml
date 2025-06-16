@@ -2,13 +2,18 @@ version: '3.8'
 
 services:
   db:
-    image: timescale/timescaledb:2.8-pg14
+    image: timescale/timescaledb:latest-pg14
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
-    secrets:
-      - db_password
+      - ./backend/sql:/docker-entrypoint-initdb.d
+      - ./secrets/db_password.txt:/run/secrets/db_password:ro
+    ports:
+      - "5433:5432"
+
 
   grafana:
     image: grafana/grafana
@@ -16,16 +21,11 @@ services:
       - "3000:3000"
     volumes:
       - ./docker/grafana/provisioning:/etc/grafana/provisioning
+      - ./docker/grafana/provisioning/dashboards/json:/etc/grafana/provisioning/dashboards/json
+      - ./secrets/grafana_admin_password.txt:/run/secrets/grafana_admin_password:ro
+      - ./secrets/db_password.txt:/run/secrets/db_password:ro
     environment:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
-    secrets:
-      - grafana_admin_password
 
 volumes:
   pg_data:
-
-secrets:
-  db_password:
-    file: ./secrets/db_password.txt
-  grafana_admin_password:
-    file: ./secrets/grafana_admin_password.txt
