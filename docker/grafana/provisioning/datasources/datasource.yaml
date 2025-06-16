@@ -8,4 +8,6 @@ datasources:
     user: postgres
     secureJsonData:
       password: $__file{/run/secrets/db_password}
+    jsonData:
+      sslmode: disable
     isDefault: true
