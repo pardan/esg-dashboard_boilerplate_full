@@ -1,17 +1,9 @@
 apiVersion: 1
-dashboards:
+
+providers:
   - name: ESG Overview
-    json: >
-      {
-        "title": "CO2 Levels",
-        "panels": [
-          {
-            "title": "CO2 ppm",
-            "type": "timeseries",
-            "targets": [{
-              "rawSql": "SELECT time, value FROM sensor_data WHERE metric_type = 'co2'",
-              "format": "time_series"
-            }]
-          }
-        ]
-      }
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    options:
+      path: /etc/grafana/provisioning/dashboards/json
